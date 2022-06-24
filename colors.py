@@ -39,3 +39,5 @@ onedark = {
     "white": "#ffffff",
     "whited": " #e6e6e6",
 }
+
+theme = onedark

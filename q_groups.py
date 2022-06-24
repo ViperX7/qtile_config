@@ -20,20 +20,15 @@ groups = [
 
 group_keys = []
 for i in groups:
-    group_keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [MOD],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc=f"Switch to group {i.name}",
-            ),
-            Key(
-                [MOD, "shift"],
-                i.name,
-                lazy.window.togroup(i.name),
-                desc=f"move focused window to group {i.name}",
-            ),
-        ]
-    )
+    nm = i.name
+    # mod1 + letter of group = switch to group
+    gpk = [
+        Key([MOD], nm, lazy.group[nm].toscreen(), desc=f"Switch to group {nm}"),
+        Key(
+            [MOD, "shift"],
+            nm,
+            lazy.window.togroup(nm),
+            desc=f"move focused window to group {nm}",
+        ),
+    ]
+    group_keys.extend(gpk)

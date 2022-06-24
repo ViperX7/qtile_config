@@ -41,8 +41,8 @@ def scratchgen(name, spawn, h, w, x=None, y=None, autohide=False, opacity=1, res
 
 
 spads = [
-    scratchgen("term", TERMINAL, 0.4, 0.9, y=0, autohide=True),
-    scratchgen("fman", FILEMAN, 0.9, 0.84),
+    scratchgen("term", TERMINAL, 0.4, 0.9, y=0, autohide=True, res="kitty"),
+    scratchgen("fman", FILEMAN, 0.9, 0.84, res="dolphin"),
     scratchgen("passman", "keepassxc", 0.8, 0.6, res="keepassxc"),
     scratchgen("discord", "discord", 0.9, 0.84, res="discord"),
     scratchgen("tgram", "telegram-desktop", 0.8, 0.6, res="telegram-desktop"),
