@@ -6,18 +6,16 @@ Qtile Config
 from os import listdir
 from random import choice as rand_choice
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad,DropDown
+from libqtile.config import Click, Drag, Key, Match, Screen, ScratchPad
 from libqtile.lazy import lazy
 from colors import onedark as theme
+from settings import TERMINAL,BROWSER,MOD,WALL_PATH
+from q_scratchpads import spads, spad_keys
+from q_groups import groups, group_keys
 
-MOD = "mod4"
+
 MOD_S = [MOD,"shift"]
 MOD_C = [MOD,"control"]
-TERMINAL = "kitty"
-BROWSER = "firefox"
-FILEMAN = "dolphin"
-WALL_PATH = "/home/utkarsh/wall/wallpapers/"
-
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -63,33 +61,10 @@ keys = [
 
 
 
-
-groups = [
-    Group("1",None,False,TERMINAL,"column",label="१"),
-    Group("2",[Match(wm_class="firefox")],False,[],"max",label="२"),
-    Group("3",None,False,[],"column",label="३"),
-    Group("4",None,False,[],"column",label="४"),
-    Group("5",None,False,[],"column",label="५"),
-    Group("6",None,False,[],"column",label="६"),
-    Group("7",None,False,[],"column",label="७"),
-    Group("8",None,False,[],"column",label="८"),
-    Group("9",None,False,[],"column",label="९"),
-]
-
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [MOD],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc=f"Switch to group {i.name}",
-            ),
-            Key(MOD_S, i.name, lazy.window.togroup(i.name),
-                desc=f"move focused window to group {i.name}")
-        ]
-    )
+# Append scratchpad with dropdowns to groups
+groups.append(ScratchPad('scratchpad', spads))
+keys.extend(spad_keys) # extend keys list with keybinding for scratchpad
+keys.extend(group_keys)
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1),
