@@ -23,9 +23,7 @@ keys.extend(spad_keys)  # extend keys list with keybinding for scratchpad
 keys.extend(group_keys)
 
 widget_defaults = dict(
-    font="FiraCode Nerd Font",
-    fontsize=12,
-    padding=3,
+    font="FiraCode Nerd Font", fontsize=12, padding=3, background="#111111"
 )
 extension_defaults = widget_defaults.copy()
 

@@ -7,7 +7,7 @@ from libqtile.lazy import lazy
 from settings import TERMINAL, FILEMAN, MOD
 
 
-def scratchgen(name, spawn, h, w, x=None, y=None, autohide=False, opacity=1, res=""):
+def scratchgen(name, spawn, h, w, x=None, y=None, autohide=False, res="", opacity=1):
     # center everything by default
     if x is None:
         x = x if x else (1 - w) / 2
@@ -40,8 +40,9 @@ def scratchgen(name, spawn, h, w, x=None, y=None, autohide=False, opacity=1, res
     return spad
 
 
+DROPTERM = TERMINAL + " --class termdrop"
 spads = [
-    scratchgen("term", TERMINAL, 0.4, 0.9, y=0, autohide=True, res="kitty"),
+    scratchgen("term", DROPTERM, 0.4, 0.9, None, 0, True, "termdrop"),
     scratchgen("fman", FILEMAN, 0.9, 0.84, res="dolphin"),
     scratchgen("passman", "keepassxc", 0.8, 0.6, res="keepassxc"),
     scratchgen("discord", "discord", 0.9, 0.84, res="discord"),

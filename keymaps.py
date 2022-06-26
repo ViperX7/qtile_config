@@ -47,7 +47,19 @@ keys = [
     # Applaunch
     Key([MOD], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"),
     Key([MOD], "b", lazy.spawn(BROWSER), desc=f"Launch {BROWSER}"),
-    Key([MOD], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key(["mod1"], "space", lazy.spawn(".config/rofi/launchers/misc/launcher.sh"), desc="Spawn a command using a prompt widget"),
+    # Media Keys
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume 0 +5%")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume 0 -5%")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
+    Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
+    Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+    # Brightness control
+    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5%")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10%")),
 ]
 
 # Drag floating layouts.
