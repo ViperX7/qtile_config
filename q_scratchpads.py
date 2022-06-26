@@ -41,6 +41,7 @@ def scratchgen(name, spawn, h, w, x=None, y=None, autohide=False, res="", opacit
 
 
 DROPTERM = TERMINAL + " --class termdrop"
+POMO = "pomotroid --no-sandbox"
 spads = [
     scratchgen("term", DROPTERM, 0.4, 0.9, None, 0, True, "termdrop"),
     scratchgen("fman", FILEMAN, 0.9, 0.84, res="dolphin"),
@@ -49,7 +50,7 @@ spads = [
     scratchgen("tgram", "telegram-desktop", 0.8, 0.6, res="telegram-desktop"),
     scratchgen("weston", "weston", 0.98, 0.25, x=0.75, y=0.015, res="weston-1"),
     scratchgen("mixer", "pavucontrol", 0.5, 0.3, 0.7, 0.015, autohide=True),
-    # DropDown('pomo', 'pomotroid', x=0.4, y=0.2, opacity=1),
+    scratchgen("pomo", POMO, 0.4, 0.2),
 ]
 
 spad_keys = [
@@ -60,4 +61,5 @@ spad_keys = [
     Key([MOD], "t", lazy.group["scratchpad"].dropdown_toggle("tgram")),
     Key([MOD], "u", lazy.group["scratchpad"].dropdown_toggle("weston")),
     Key([MOD], "o", lazy.group["scratchpad"].dropdown_toggle("mixer")),
+    Key([MOD], "i", lazy.group["scratchpad"].dropdown_toggle("pomo")),
 ]

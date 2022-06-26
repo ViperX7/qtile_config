@@ -14,10 +14,10 @@ nord_fox = {
     "pink": "#bf88bc",
 }
 onedark = {
-
     "fg": "#e6e6e6",
     "bg": "#282c34",
-
+    "lightblack": "#4b5668",
+    "black": "#3b4252",
     "red": "#ff5555",
     "redd": "#ec0101",
     #: red
