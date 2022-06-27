@@ -2,6 +2,9 @@
 Qtile Config
 """
 
+from subprocess import PIPE, Popen
+from libqtile import hook
+
 from os import listdir
 from random import choice as rand_choice
 from libqtile.config import Click, Drag, Key, Screen, ScratchPad
@@ -34,3 +37,15 @@ screens = [
         wallpaper_mode="fill",
     ),
 ]
+
+
+def run(cmd):
+    otp = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=False)
+
+
+@hook.subscribe.startup_once
+def autostart():
+    run(["deadd-notification-center"])
+    run(["picom"])
+    run(["nm-applet"])
+    run("lxqt-policykit-agent")

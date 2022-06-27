@@ -47,7 +47,12 @@ keys = [
     # Applaunch
     Key([MOD], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"),
     Key([MOD], "b", lazy.spawn(BROWSER), desc=f"Launch {BROWSER}"),
-    Key(["mod1"], "space", lazy.spawn(".config/rofi/launchers/misc/launcher.sh"), desc="Spawn a command using a prompt widget"),
+    Key(
+        ["mod1"],
+        "space",
+        lazy.spawn(".config/rofi/launchers/misc/launcher.sh"),
+        desc="Spawn a command using a prompt widget",
+    ),
     # Media Keys
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume 0 +5%")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume 0 -5%")),
@@ -60,6 +65,10 @@ keys = [
     # Brightness control
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 5%")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10%")),
+    Key([], "Print", lazy.spawn("flameshot gui")),
+    Key([MOD], "Print", lazy.spawn("flameshot full")),
+    # Notification Center
+    Key([MOD], "y", lazy.spawn("sh .config/qtile/scripts/notification_toggle.sh")),
 ]
 
 # Drag floating layouts.

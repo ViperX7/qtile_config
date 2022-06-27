@@ -21,23 +21,23 @@ onedark = {
     "red": "#ff5555",
     "redd": "#ec0101",
     #: red
-    "green": " #5ebdab",
+    "green": "#5ebdab",
     "greend": " #47d4b9",
     #: green
-    "yellow": " #fea44c",
+    "yellow": "#fea44c",
     "yellowd": "#ff8a18",
     #: yellow
-    "blue": " #367bf0",
-    "blued": " #277fff",
+    "blue": "#367bf0",
+    "blued": "#277fff",
     #: blue
-    "magenta": " #bf2e5d",
+    "magenta": "#bf2e5d",
     "magentad": "#d71655",
     #: magenta
-    "cyan": " #4eeeff",
+    "cyan": "#4eeeff",
     "cyand": "#05a1f7",
     #: cyan
     "white": "#ffffff",
-    "whited": " #e6e6e6",
+    "whited": "#e6e6e6",
 }
 
 theme = onedark
