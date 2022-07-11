@@ -6,11 +6,16 @@ from libqtile.config import Group, Key, Match
 from libqtile.lazy import lazy
 from settings import TERMINAL, MOD
 
+VM_MATCHES = [
+    Match(wm_class="Xephyr"),
+    Match(wm_class="xfreerdp"),
+    Match(wm_class="virt-manager"),
+]
 groups = [
     Group("1", None, False, TERMINAL, "column", label="१"),
     Group("2", [Match(wm_class="firefox")], False, [], "max", label="२"),
     Group("3", None, False, [], "column", label="३"),
-    Group("4", None, False, [], "column", label="४"),
+    Group("4", VM_MATCHES, False, [], "max", label="४"),
     Group("5", None, False, [], "column", label="५"),
     Group("6", None, False, [], "column", label="६"),
     Group("7", None, False, [], "column", label="७"),

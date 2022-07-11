@@ -1,21 +1,24 @@
 """
 Qtile Config
 """
-
-from subprocess import PIPE, Popen
-from libqtile import hook
-
 from os import listdir
 from random import choice as rand_choice
-from libqtile.config import Click, Drag, Key, Screen, ScratchPad
-from libqtile.lazy import lazy
+from subprocess import PIPE
+from subprocess import Popen
 
-from settings import *
-from q_scratchpads import spads, spad_keys
-from q_groups import groups, group_keys
+from libqtile import hook
+from libqtile.config import ScratchPad
+from libqtile.config import Screen
+
 from bar import custom_bar
-from layouts import layouts, floating_layout
 from keymaps import keys
+from layouts import floating_layout
+from layouts import layouts
+from q_groups import group_keys
+from q_groups import groups
+from q_scratchpads import spad_keys
+from q_scratchpads import spads
+from settings import *
 
 MOD_S = [MOD, "shift"]
 MOD_C = [MOD, "control"]
@@ -40,11 +43,20 @@ screens = [
 
 
 def run(cmd):
-    otp = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=False)
+    """
+    Start a program in background
+
+    Args:
+        cmd (str): command to execute in background
+    """
+    Popen(cmd, stdout=PIPE, stderr=PIPE, shell=False)
 
 
 @hook.subscribe.startup_once
 def autostart():
+    """
+    Start stuff automatically
+    """
     run(["deadd-notification-center"])
     run(["picom"])
     run(["nm-applet"])

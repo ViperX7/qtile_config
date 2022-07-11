@@ -2,8 +2,12 @@
 layouts
 """
 from libqtile import layout
-from libqtile.layout import Columns, Max, MonadTall, Zoomy, Floating
 from libqtile.config import Match
+from libqtile.layout import Columns
+from libqtile.layout import Floating
+from libqtile.layout import Max
+from libqtile.layout import MonadTall
+from libqtile.layout import Zoomy
 
 layouts = [
     Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1),
@@ -32,5 +36,6 @@ floating_layout = Floating(
         Match(wm_class="ssh-askpass"),  # ssh-askpass
         Match(title="branchdialog"),  # gitk
         Match(title="pinentry"),  # GPG key password entry
+        Match(title="flameshot"),  # GPG key password entry
     ]
 )

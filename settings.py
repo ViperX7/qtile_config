@@ -6,7 +6,7 @@ MOD = "mod4"
 TERMINAL = "kitty"
 BROWSER = "firefox"
 FILEMAN = "dolphin"
-WALL_PATH = "/home/utkarsh/wall/wallpapers/"
+WALL_PATH = "wall/nord-wallpapers/"
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
