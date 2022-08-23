@@ -39,17 +39,21 @@ screens = [
         wallpaper=WALL_PATH + rand_choice(listdir(WALL_PATH)),
         wallpaper_mode="fill",
     ),
+    Screen(
+        wallpaper=WALL_PATH + rand_choice(listdir(WALL_PATH)),
+        wallpaper_mode="fill",
+    ),
 ]
 
 
-def run(cmd):
+def run(cmd, shell=False):
     """
     Start a program in background
 
     Args:
         cmd (str): command to execute in background
     """
-    Popen(cmd, stdout=PIPE, stderr=PIPE, shell=False)
+    Popen(cmd, stdout=PIPE, stderr=PIPE, shell=shell)
 
 
 @hook.subscribe.startup_once
@@ -61,3 +65,4 @@ def autostart():
     run(["picom"])
     run(["nm-applet"])
     run("lxqt-policykit-agent")
+    run("syncthing", shell=True)

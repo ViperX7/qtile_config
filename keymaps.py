@@ -47,6 +47,7 @@ keys = [
     # Applaunch
     Key([MOD], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"),
     Key([MOD], "b", lazy.spawn(BROWSER), desc=f"Launch {BROWSER}"),
+    Key([MOD], "c", lazy.spawn(".config/qtile/scripts/lock.sh"), desc="Lock Screen"),
     Key(
         ["mod1"],
         "space",
@@ -69,6 +70,7 @@ keys = [
     Key([MOD], "Print", lazy.spawn("flameshot full")),
     # Notification Center
     Key([MOD], "y", lazy.spawn("sh .config/qtile/scripts/notification_toggle.sh")),
+    Key([MOD], "v", lazy.spawn("sh .config/qtile/scripts/multi_monitor.sh")),
 ]
 
 # Drag floating layouts.

@@ -1,10 +1,14 @@
 """
 Scratchpads
 """
-
-from libqtile.config import DropDown, Key, Match
+from libqtile.config import DropDown
+from libqtile.config import Key
+from libqtile.config import Match
 from libqtile.lazy import lazy
-from settings import TERMINAL, FILEMAN, MOD
+
+from settings import FILEMAN
+from settings import MOD
+from settings import TERMINAL
 
 
 def scratchgen(name, spawn, h, w, x=None, y=None, autohide=False, res="", opacity=1):
@@ -51,6 +55,13 @@ spads = [
     scratchgen("weston", "weston", 0.98, 0.25, x=0.75, y=0.015, res="weston-1"),
     scratchgen("mixer", "pavucontrol", 0.5, 0.3, 0.7, 0.015, autohide=True),
     scratchgen("pomo", POMO, 0.4, 0.2),
+    scratchgen(
+        "sprod",
+        "Applications/superProductivity-7.11.5.AppImage",
+        0.9,
+        0.84,
+        res="superproductivity",
+    ),
 ]
 
 spad_keys = [
@@ -62,4 +73,5 @@ spad_keys = [
     Key([MOD], "u", lazy.group["scratchpad"].dropdown_toggle("weston")),
     Key([MOD], "o", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([MOD], "i", lazy.group["scratchpad"].dropdown_toggle("pomo")),
+    Key([MOD], "0", lazy.group["scratchpad"].dropdown_toggle("sprod")),
 ]
