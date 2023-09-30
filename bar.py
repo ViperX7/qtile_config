@@ -2,34 +2,23 @@
 BAR
 """
 import os
-from libqtile import bar
-from libqtile.widget import (
-    GroupBox,
-    CurrentLayout,
-    CurrentLayoutIcon,
-    Prompt,
-    WindowName,
-    Chord,
-    Battery,
-    Net,
-    CPU,
-    Memory,
-    Systray,
-    Clock,
-    PulseVolume,
-    TextBox,
-    TaskList,
-    Notify,
-    Sep,
-)
-from colors import theme, nord_fox
 
-GREY = theme["bg"]
+from colors import catppuccin, theme
+from libqtile import bar, lazy
+from libqtile.widget import (CPU, Battery, Chord, Clock, CurrentLayout,
+                             CurrentLayoutIcon, GroupBox, Memory, Net, Notify,
+                             Prompt, PulseVolume, Sep, Systray, TaskList,
+                             TextBox, WindowName)
+
+from settings import IS_DESKTOP
+
+GREY = theme["base"]
 DARK_GREY = "#111111"
 BLUE = "#007fdf"
 DARK_BLUE = "#002a4a"
 ORANGE = "#dd6600"
 DARK_ORANGE = "#371900"
+BAR_CUT_OUT_SIZE = 38 if  IS_DESKTOP else 45
 
 
 def init_widgets():
@@ -49,7 +38,7 @@ def init_widgets():
             other_current_screen_border=ORANGE,
         ),
         TextBox(
-            text="◤", fontsize=45, padding=-1, foreground=DARK_GREY, background=GREY
+            text="◤", fontsize=BAR_CUT_OUT_SIZE, padding=-1, foreground=DARK_GREY, background=GREY
         ),
         WindowName(
             borderwidth=0,
@@ -62,67 +51,79 @@ def init_widgets():
         ),
         TextBox(
             text="◥",
-            fontsize=45,
+            fontsize=BAR_CUT_OUT_SIZE,
             padding=-2,
-            foreground=nord_fox["green"],
+            foreground=catppuccin["green"],
             background=GREY,
         ),
         CPU(
             format="<span color='#452342'>  {freq_current}GHz {load_percent}%</span>",
             update_interval=2,
-            background=nord_fox["green"],
+            background=catppuccin["green"],
         ),
         TextBox(
             text="◥",
-            fontsize=45,
+            fontsize=BAR_CUT_OUT_SIZE,
             padding=-2,
-            foreground=nord_fox["orange"],
-            background=nord_fox["green"],
+            foreground=catppuccin["peach"],
+            background=catppuccin["green"],
         ),
         Memory(
             format="<span color='#114477'></span> {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}",
             update_interval=2,
-            background=nord_fox["orange"],
+            background=catppuccin["peach"],
+            foreground=catppuccin["base"],
         ),
         TextBox(
             text="◥",
-            fontsize=45,
+            fontsize=BAR_CUT_OUT_SIZE,
             padding=-1.5,
-            foreground=nord_fox["pink"],
-            background=nord_fox["orange"],
+            foreground=catppuccin["pink"],
+            background=catppuccin["peach"],
         ),
-        Net(format="{down}   {up}", background=nord_fox["pink"]),
+        Net(
+            format="{down}   {up}",
+            background=catppuccin["pink"],
+            foreground=catppuccin["base"],
+        ),
         TextBox(
             text="◥",
-            fontsize=45,
+            fontsize=BAR_CUT_OUT_SIZE,
             padding=-1.5,
-            foreground=nord_fox["blue"],
-            background=nord_fox["pink"],
+            foreground=catppuccin["blue"],
+            background=catppuccin["pink"],
         ),
-        Systray(background=nord_fox["blue"]),
+        Systray(background=catppuccin["blue"]),
         TextBox(
             text="◤",
-            fontsize=45,
+            fontsize=BAR_CUT_OUT_SIZE,
             padding=-2,
-            foreground=nord_fox["blue"],
+            foreground=catppuccin["blue"],
             background=DARK_GREY,
         ),
-        Notify(fmt=" 🔥 {} "),
+        # Notify(fmt=" 🔥 {} "),
         # PulseVolume(fmt=" {}", emoji=True, volume_app="pavucontrol"),
-        TextBox(
-            text="◤",
-            fontsize=45,
-            padding=-2,
-            foreground=DARK_GREY,
-            background=nord_fox["cyan"],
-        ),
         # PulseVolume(volume_app="pavucontrol"),
         Clock(
             format="<span color='#222'> ⏱ %H:%M  %A %d-%m-%Y</span>  ",
-            background=nord_fox["cyan"],
+            background=catppuccin["sapphire"],
         ),
     ]
-    if os.path.isdir("/sys/module/battery"):
+    if os.path.isdir("/sys/module/battery") and not IS_DESKTOP:
+
+        widgets.insert(
+                    -2,
+                    TextBox(
+                                text="◤",
+                                fontsize=BAR_CUT_OUT_SIZE,
+                                padding=-2,
+                                foreground=DARK_GREY,
+                                background=catppuccin["sapphire"],
+                            )
+                    
+                )
+
+
         widgets.insert(
             -2,
             Battery(
@@ -157,5 +158,5 @@ custom_bar = bar.Bar(
     16,
     # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
     # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
-    background=theme["bg"],
+    background=theme["base"],
 )

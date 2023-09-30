@@ -2,11 +2,16 @@
 Settings
 """
 
+from subprocess import check_output
+
+# pylint: disable=C0103
 MOD = "mod4"
 TERMINAL = "kitty"
 BROWSER = "firefox"
 FILEMAN = "dolphin"
-WALL_PATH = "wall/nord-wallpapers/"
+WALL_PATH = "Pictures/wallpapers/"
+
+IS_DESKTOP = "base" in check_output("cat /etc/hostname".split(" ")).decode("latin")
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
