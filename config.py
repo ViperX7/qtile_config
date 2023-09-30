@@ -61,8 +61,12 @@ def autostart():
     """
     Start stuff automatically
     """
-    run(["deadd-notification-center"])
+    run("lxqt-policykit-agent")
+    run("xrandr --output DP-1 --mode 2560x1440 --rate 144 --primary --right-of HDMI-1",
+        shell=True) if IS_DESKTOP else None
     run(["picom"])
     run(["nm-applet"])
-    run("lxqt-policykit-agent")
     run("syncthing", shell=True)
+    run("sh projects/capsmap.sh", shell=True)
+    run("xfce4-power-manager --daemon")
+    run(["deadd-notification-center"])
