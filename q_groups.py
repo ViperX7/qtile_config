@@ -8,12 +8,12 @@ from settings import TERMINAL, MOD
 
 VM_MATCHES = [
     Match(wm_class="Xephyr"),
-    Match(wm_class="xfreerdp"),
+    # Match(wm_class="xfreerdp"),
     Match(wm_class="virt-manager"),
 ]
 groups = [
     Group("1", None, False, TERMINAL, "column", label="१"),
-    Group("2", [Match(wm_class="firefox")], False, [], "max", label="२"),
+    Group("2", [Match(wm_class="firefox")], False, [], label="२"),
     Group("3", None, False, [], "column", label="३"),
     Group("4", VM_MATCHES, False, [], "max", label="४"),
     Group("5", None, False, [], "column", label="५"),

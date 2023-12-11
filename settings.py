@@ -3,13 +3,14 @@ Settings
 """
 
 from subprocess import check_output
+import os
 
 # pylint: disable=C0103
 MOD = "mod4"
 TERMINAL = "kitty"
 BROWSER = "firefox"
 FILEMAN = "dolphin"
-WALL_PATH = "Pictures/wallpapers/"
+WALL_PATH = os.path.expanduser("~/Pictures/wallpapers/")
 
 IS_DESKTOP = "base" in check_output("cat /etc/hostname".split(" ")).decode("latin")
 

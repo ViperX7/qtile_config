@@ -50,6 +50,7 @@ spads = [
     scratchgen("term", DROPTERM, 0.4, 0.9, None, 0, True, "termdrop"),
     scratchgen("fman", FILEMAN, 0.9, 0.84, res="dolphin"),
     scratchgen("passman", "keepassxc", 0.8, 0.6, res="keepassxc"),
+    scratchgen("mailclient", "thunderbird", 0.8, 0.6, res="thunderbird"),
     scratchgen("discord", "discord", 0.9, 0.84, res="discord"),
     scratchgen("tgram", "telegram-desktop", 0.8, 0.6, res="telegram-desktop"),
     scratchgen("weston", "weston", 0.98, 0.25, x=0.75, y=0.015, res="weston-1"),
@@ -74,4 +75,5 @@ spad_keys = [
     Key([MOD], "o", lazy.group["scratchpad"].dropdown_toggle("mixer")),
     Key([MOD], "i", lazy.group["scratchpad"].dropdown_toggle("pomo")),
     Key([MOD], "0", lazy.group["scratchpad"].dropdown_toggle("sprod")),
+    Key([MOD], "m", lazy.group["scratchpad"].dropdown_toggle("mailclient")),
 ]
