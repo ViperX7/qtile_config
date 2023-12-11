@@ -7,7 +7,7 @@ from colors import catppuccin, theme
 from libqtile import bar, lazy
 from libqtile.widget import (CPU, Battery, Chord, Clock, CurrentLayout,
                              CurrentLayoutIcon, GroupBox, Memory, Net, Notify,
-                             Prompt, PulseVolume, Sep, Systray, TaskList,
+                             Prompt, Sep, Systray, TaskList,
                              TextBox, WindowName)
 
 from settings import IS_DESKTOP

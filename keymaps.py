@@ -9,6 +9,14 @@ from settings import MOD, TERMINAL, BROWSER
 MOD_S = [MOD, "shift"]
 MOD_C = [MOD, "control"]
 
+
+def is_kero_connected():
+    """
+    returns true if specific keyboard is connected
+    """
+    return b"Kreo" in check_output("lsusb")
+
+
 keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -55,11 +63,17 @@ keys = [
         desc="Spawn a command using a prompt widget",
     ),
     # Media Keys
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume 0 +5%")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume 0 -5%")),
-    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
-    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
-    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle")),
+    Key([], "XF86AudioRaiseVolume",
+        lazy.spawn(
+            f'pactl set-sink-volume @DEFAULT_SINK@ {"-" if is_kero_connected() else "+"}5%'
+        )),
+    Key([], "XF86AudioLowerVolume",
+        lazy.spawn(
+            f'pactl set-sink-volume @DEFAULT_SINK@ {"+" if is_kero_connected() else "-"}5%'
+        )),
+    Key([], "XF86AudioMute",
+        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+    Key([], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
