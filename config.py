@@ -59,11 +59,12 @@ def autostart():
     """
     run("lxqt-policykit-agent")
     _ = run(
-        "xrandr --output DP-1 --mode 2560x1440 --rate 144 --primary --right-of HDMI-1",
+        "xrandr --output DP-1 --mode 2560x1440 --rate 170 --primary --right-of HDMI-1",
         shell=True) if IS_DESKTOP else None
     run(["picom"])
     run(["nm-applet"])
     run("syncthing", shell=True)
     run("sh projects/capsmap.sh", shell=True)
     run("xfce4-power-manager --daemon")
+    run("xfce4-power-manager")
     run(["deadd-notification-center"])
