@@ -14,6 +14,10 @@ WALL_PATH = os.path.expanduser("~/Pictures/wallpapers/")
 
 IS_DESKTOP = "base" in check_output("cat /etc/hostname".split(" ")).decode("latin")
 
+SCREEN_LOCK_CMD = ".config/qtile/scripts/lock.sh"
+LAUNCHER_CMD = ".config/rofi/launchers/misc/launcher.sh"
+NOTIFICATION_CENTER_CMD = "sh .config/qtile/scripts/notification_toggle.sh"
+
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
