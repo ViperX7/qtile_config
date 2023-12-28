@@ -7,9 +7,8 @@ from colors import catppuccin, theme
 from libqtile import bar, lazy
 from libqtile.widget import (CPU, Battery, Chord, Clock, CurrentLayout,
                              CurrentLayoutIcon, GroupBox, Memory, Net, Notify,
-                             Prompt, Sep, Systray, TaskList,
-                             TextBox, WindowName)
-
+                             Prompt, Sep, Systray, TaskList, TextBox,
+                             WindowName)
 from settings import IS_DESKTOP
 
 GREY = theme["base"]
@@ -18,12 +17,14 @@ BLUE = "#007fdf"
 DARK_BLUE = "#002a4a"
 ORANGE = "#dd6600"
 DARK_ORANGE = "#371900"
-BAR_CUT_OUT_SIZE = 38 if  IS_DESKTOP else 45
+BAR_CUT_OUT_SIZE = 38 if IS_DESKTOP else 45
 
 
 def init_widgets():
     """widgets initialiser"""
-    widgets = [
+
+    widgets = []
+    left_widget_group = [
         CurrentLayoutIcon(scale=0.6, padding=8),
         GroupBox(
             fontsize=10,
@@ -37,9 +38,104 @@ def init_widgets():
             this_current_screen_border=BLUE,
             other_current_screen_border=ORANGE,
         ),
-        TextBox(
-            text="◤", fontsize=BAR_CUT_OUT_SIZE, padding=-1, foreground=DARK_GREY, background=GREY
+    ]
+
+    clock = [
+        Clock(
+            format="%I:%M %p",
+            background="#282738",
+            foreground="#CAA9E0",
+            font="JetBrains Mono Bold",
+            fontsize=12,
         ),
+        TextBox(
+            "",
+            fontsize=18,
+            background="#282738",
+            foreground="#CAA9E0",
+            padding=4,
+        ),
+        Clock(
+            format=" %a %b %d",
+            background="#282738",
+            foreground="#CAA9E0",
+            font="JetBrains Mono Bold",
+            fontsize=12,
+        ),
+    ]
+
+
+    battery = [
+        # TextBox(
+        #     text="◤",
+        #     fontsize=BAR_CUT_OUT_SIZE,
+        #     padding=-2,
+        #     foreground=DARK_GREY,
+        #     background=catppuccin["sapphire"],
+        # ),
+        Battery(
+            format=" {char} {percent:2.0%} ",
+            charge_char="⚡",
+            discharge_char="🔋",
+            full_char="⚡",
+            unknown_char="⚡",
+            empty_char="⁉️ ",
+            update_interval=2,
+            show_short_text=False,
+            default_text="",
+            notify_below=50,
+        ),
+        Battery(
+                fmt="<span color='#eee'>{}</span> ",
+                format="{hour:d}:{min:02d}",
+                update_interval=2,
+                show_short_text=True,
+                default_text="",
+            ),
+    ]
+
+    post_tray_widgets = [
+        CPU(
+            format=
+            "<span color='#452342'>  {freq_current}GHz {load_percent}%</span>",
+            update_interval=2,
+            background=catppuccin["green"],
+        ),
+        TextBox(
+            text="◥",
+            fontsize=BAR_CUT_OUT_SIZE,
+            padding=-2,
+            foreground=catppuccin["peach"],
+            background=catppuccin["green"],
+        ),
+        Memory(
+            format=
+            "<span color='#114477'></span> {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}",
+            update_interval=2,
+            background=catppuccin["peach"],
+            foreground=catppuccin["base"],
+        ),
+        TextBox(
+            text="◥",
+            fontsize=BAR_CUT_OUT_SIZE,
+            padding=-1.5,
+            foreground=catppuccin["pink"],
+            background=catppuccin["peach"],
+        ),
+        Net(
+            format=" {up}  {down} ",
+            background=catppuccin["pink"],
+            foreground=catppuccin["base"],
+        )
+    ]
+
+    widgets += left_widget_group
+    widgets += [
+        TextBox(text="◤",
+                fontsize=BAR_CUT_OUT_SIZE,
+                padding=-1,
+                foreground=DARK_GREY,
+                background=GREY),
         WindowName(
             borderwidth=0,
             highlight_method="block",
@@ -55,37 +151,12 @@ def init_widgets():
             padding=-2,
             foreground=catppuccin["green"],
             background=GREY,
-        ),
-        CPU(
-            format="<span color='#452342'>  {freq_current}GHz {load_percent}%</span>",
-            update_interval=2,
-            background=catppuccin["green"],
-        ),
-        TextBox(
-            text="◥",
-            fontsize=BAR_CUT_OUT_SIZE,
-            padding=-2,
-            foreground=catppuccin["peach"],
-            background=catppuccin["green"],
-        ),
-        Memory(
-            format="<span color='#114477'></span> {MemUsed: .0f}{mm}/{MemTotal: .0f}{mm}",
-            update_interval=2,
-            background=catppuccin["peach"],
-            foreground=catppuccin["base"],
-        ),
-        TextBox(
-            text="◥",
-            fontsize=BAR_CUT_OUT_SIZE,
-            padding=-1.5,
-            foreground=catppuccin["pink"],
-            background=catppuccin["peach"],
-        ),
-        Net(
-            format="{down}   {up}",
-            background=catppuccin["pink"],
-            foreground=catppuccin["base"],
-        ),
+        ),]
+
+    widgets += post_tray_widgets
+
+    widgets += [
+
         TextBox(
             text="◥",
             fontsize=BAR_CUT_OUT_SIZE,
@@ -104,57 +175,16 @@ def init_widgets():
         # Notify(fmt=" 🔥 {} "),
         # PulseVolume(fmt=" {}", emoji=True, volume_app="pavucontrol"),
         # PulseVolume(volume_app="pavucontrol"),
-        Clock(
-            format="<span color='#222'> ⏱ %H:%M  %A %d-%m-%Y</span>  ",
-            background=catppuccin["sapphire"],
-        ),
     ]
-    if os.path.isdir("/sys/module/battery") and not IS_DESKTOP:
-
-        widgets.insert(
-                    -2,
-                    TextBox(
-                                text="◤",
-                                fontsize=BAR_CUT_OUT_SIZE,
-                                padding=-2,
-                                foreground=DARK_GREY,
-                                background=catppuccin["sapphire"],
-                            )
-                    
-                )
+    widgets += battery if os.path.isdir("/sys/module/battery") and not IS_DESKTOP else []
+    widgets += clock
 
 
-        widgets.insert(
-            -2,
-            Battery(
-                format=" {char} {percent:2.0%} ",
-                charge_char="⚡",
-                discharge_char="🔋",
-                full_char="⚡",
-                unknown_char="⚡",
-                empty_char="⁉️ ",
-                update_interval=2,
-                show_short_text=False,
-                default_text="",
-                notify_below=50,
-            ),
-        )
-        widgets.insert(
-            -2,
-            Battery(
-                fmt="<span color='#eee'>{}</span> ",
-                format="{hour:d}:{min:02d}",
-                update_interval=2,
-                show_short_text=True,
-                default_text="",
-            ),
-        )
     return widgets
 
 
-widgets = init_widgets()
 custom_bar = bar.Bar(
-    widgets,
+    init_widgets(),
     16,
     # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
     # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta

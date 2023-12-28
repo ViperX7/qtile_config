@@ -39,6 +39,9 @@ keys = [
     Key(MOD_S, "l", lazy.layout.shuffle_right(), desc="window to <-"),
     Key(MOD_S, "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key(MOD_S, "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([MOD], "equal",lazy.screen.next_group(skip_empty=False) , desc="Move window up"),
+    Key([MOD], "minus",lazy.screen.prev_group(skip_empty=False) , desc="Move window up"),
+
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key(MOD_C, "h", lazy.layout.grow_left(), desc="Grow window to the left"),
@@ -68,7 +71,7 @@ keys = [
     Key(ALT, "space", lazy.spawn(LAUNCHER_CMD), desc="Show Launcher"),
     # Media Keys
     Key([], "XF86AudioRaiseVolume", lazy.spawn(VOL_UP_CMD)),
-    Key([], "XF86AudioLowerVolume", lazy.spawn()),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(VOL_DOWN_CMD)),
     Key([], "XF86AudioMute",
         lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key([], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle")),
@@ -84,7 +87,7 @@ keys = [
     Key([], "XF86PowerOff", lazy.spawn("/bin/systemctl suspend")),
     Key([], "Print", lazy.spawn("flameshot gui")),
     Key([MOD], "Print", lazy.spawn("flameshot full")),
-    Key(MOD_S, "s", lazy.spawn("flameshot gui")),
+    # Key(MOD_S, "s", lazy.spawn("flameshot gui")),
     Key([MOD], "s", lazy.spawn("sh .config/qtile/scripts/screen_read.sh")),
 
     # Notification Center
