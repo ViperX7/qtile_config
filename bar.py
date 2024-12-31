@@ -2,12 +2,13 @@
 BAR
 """
 import os
+import libqtile
 
 from colors import catppuccin, theme
 from libqtile import bar, lazy
 from libqtile.widget import (CPU, Battery, Chord, Clock, CurrentLayout,
                              CurrentLayoutIcon, GroupBox, Memory, Net, Notify,
-                             Prompt, Sep, Systray, TaskList, TextBox,
+                             Prompt, Sep, Systray, TaskList, TextBox,Chord,
                              WindowName)
 from settings import IS_DESKTOP
 
@@ -26,6 +27,7 @@ def init_widgets():
     widgets = []
     left_widget_group = [
         CurrentLayoutIcon(scale=0.6, padding=8),
+        Chord(),
         GroupBox(
             fontsize=10,
             padding=4,
@@ -38,6 +40,7 @@ def init_widgets():
             this_current_screen_border=BLUE,
             other_current_screen_border=ORANGE,
         ),
+        # GlobalMenu(background="red")
     ]
 
     clock = [
@@ -176,6 +179,7 @@ def init_widgets():
         # PulseVolume(fmt=" {}", emoji=True, volume_app="pavucontrol"),
         # PulseVolume(volume_app="pavucontrol"),
     ]
+    # widgets+= [Bluetooth()]
     widgets += battery if os.path.isdir("/sys/module/battery") and not IS_DESKTOP else []
     widgets += clock
 

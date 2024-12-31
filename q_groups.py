@@ -1,19 +1,24 @@
 """
 Groups
 """
-
 from libqtile.config import Group, Key, Match
 from libqtile.lazy import lazy
-from settings import TERMINAL, MOD
+from settings import MOD, TERMINAL
 
 VM_MATCHES = [
     Match(wm_class="Xephyr"),
     # Match(wm_class="xfreerdp"),
     Match(wm_class="virt-manager"),
 ]
+
+BROWSER_MATCHES = [
+    Match(wm_class="firefox"),
+    # Match(wm_class="flet"),
+]
+
 groups = [
-    Group("1", None, False, TERMINAL, "column", label="१"),
-    Group("2", [Match(wm_class="firefox")], False, [], label="२"),
+    Group("1", None, False, [f"{TERMINAL} tmux"], "column", label="१"),
+    Group("2", BROWSER_MATCHES, False, [], label="२",),
     Group("3", None, False, [], "column", label="३"),
     Group("4", VM_MATCHES, False, [], "max", label="४"),
     Group("5", None, False, [], "column", label="५"),

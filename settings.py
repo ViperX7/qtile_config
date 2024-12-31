@@ -1,18 +1,17 @@
 """
 Settings
 """
-
-from subprocess import check_output
 import os
+from subprocess import check_output
 
 # pylint: disable=C0103
 MOD = "mod4"
 TERMINAL = "kitty"
 BROWSER = "firefox"
 FILEMAN = "dolphin"
-WALL_PATH = os.path.expanduser("~/Pictures/wallpapers/")
+WALL_PATH = os.path.expanduser("~/Pictures/wallpapers/new/")
 
-IS_DESKTOP = "base" in check_output("cat /etc/hostname".split(" ")).decode("latin")
+IS_DESKTOP = b"base" in check_output("hostname")
 
 SCREEN_LOCK_CMD = ".config/qtile/scripts/lock.sh"
 LAUNCHER_CMD = ".config/rofi/launchers/misc/launcher.sh"
@@ -32,3 +31,33 @@ auto_minimize = True  # Allow windows to automatically minimize
 wmname = "LG3D"  # Helps with Java stuff
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
+
+# Things that start when you login with qtile
+AUTO_START_ONCE = {
+    "daemon": [
+        "picom",
+        "nm-applet",
+        "lxqt-policykit-agent",
+        # "syncthing",
+        "deadd-notification-center",
+        "kdeconnect-indicator",
+        # "sunshine",
+    ],
+    "cmd": [
+        "tmux start-server",
+        "tmux new-session -d",
+        "xfce4-power-manager --daemon",
+        "xfce4-power-manager",
+        # "barrier",
+        # "cd ~/blog/; mkdocs serve",
+    ],
+}
+
+# things that run every time qtile is started/restarted
+AUTO_START_ALWAYS = {
+    "daemon": [],
+    "cmd": [
+        "sh projects/capsmap.sh",
+        "sh .config/qtile/scripts/desktop_autostart.sh" if IS_DESKTOP else "ls"
+    ],
+}

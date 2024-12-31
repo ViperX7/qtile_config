@@ -1,9 +1,11 @@
 """
 Keybindings
 """
+# pyright: basic
+
 from subprocess import check_output
 
-from libqtile.config import Click, Drag, Key
+from libqtile.config import Click, Drag, Key, KeyChord
 from libqtile.lazy import lazy
 from settings import (BROWSER, LAUNCHER_CMD, MOD, NOTIFICATION_CENTER_CMD,
                       SCREEN_LOCK_CMD, TERMINAL)
@@ -11,6 +13,26 @@ from settings import (BROWSER, LAUNCHER_CMD, MOD, NOTIFICATION_CENTER_CMD,
 MOD_S = [MOD, "shift"]
 MOD_C = [MOD, "control"]
 ALT = ["mod1"]
+
+
+def exqt(cmd):
+    return check_output(cmd, shell=True).decode("utf-8").strip("\n")
+
+
+def audio_service(cmd):
+    ar = SocketClient("localhost", 1464)
+    ar.initialize()
+    resp = ar.run(cmd)
+    exqt(f"notify-send {resp}")
+    # if cmd == "transcribe": 
+    #     addToClipBoard(resp)
+    ar.close()
+
+def addToClipBoard(text):
+    command = f"echo {text.strip()} | xclip"
+    exqt(command)
+
+
 
 
 def is_kero_connected():
@@ -21,8 +43,8 @@ def is_kero_connected():
 
 
 VOL_CMD = "pactl set-sink-volume @DEFAULT_SINK@"
-VOL_UP_CMD = f'{VOL_CMD} {"-" if is_kero_connected() else "+"}5%'
-VOL_DOWN_CMD = f'{VOL_CMD} {"+" if is_kero_connected() else "-"}5%'
+VOL_UP_CMD = f'{VOL_CMD} {"-" if is_kero_connected() else "+"}2%'
+VOL_DOWN_CMD = f'{VOL_CMD} {"+" if is_kero_connected() else "-"}2%'
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -39,9 +61,12 @@ keys = [
     Key(MOD_S, "l", lazy.layout.shuffle_right(), desc="window to <-"),
     Key(MOD_S, "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key(MOD_S, "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key([MOD], "equal",lazy.screen.next_group(skip_empty=False) , desc="Move window up"),
-    Key([MOD], "minus",lazy.screen.prev_group(skip_empty=False) , desc="Move window up"),
-
+    Key(
+        [MOD], "equal", lazy.screen.next_group(skip_empty=False), desc="Move window up"
+    ),
+    Key(
+        [MOD], "minus", lazy.screen.prev_group(skip_empty=False), desc="Move window up"
+    ),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key(MOD_C, "h", lazy.layout.grow_left(), desc="Grow window to the left"),
@@ -72,11 +97,10 @@ keys = [
     # Media Keys
     Key([], "XF86AudioRaiseVolume", lazy.spawn(VOL_UP_CMD)),
     Key([], "XF86AudioLowerVolume", lazy.spawn(VOL_DOWN_CMD)),
-    Key([], "XF86AudioMute",
-        lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key([], "XF86AudioMicMute", lazy.spawn("amixer set Capture toggle")),
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
-    Key([MOD], "semicolon", lazy.spawn("playerctl play-pause")),
+    # Key([MOD], "semicolon", lazy.spawn("playerctl play-pause")),
     Key([], "XF86AudioPrev", lazy.spawn("playerctl previous")),
     Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
     # Brightness control
@@ -88,16 +112,25 @@ keys = [
     Key([], "Print", lazy.spawn("flameshot gui")),
     Key([MOD], "Print", lazy.spawn("flameshot full")),
     # Key(MOD_S, "s", lazy.spawn("flameshot gui")),
-    Key([MOD], "s", lazy.spawn("sh .config/qtile/scripts/screen_read.sh")),
-
+    # All AI related features
+    KeyChord(
+        [MOD],
+        "s",
+        [
+            Key([], "s", lazy.spawn("sh .config/qtile/scripts/screen_read.sh")),
+            Key([], "t", lazy.spawn("sh .config/qtile/scripts/transcribe.sh")),
+        ],
+        name="Ai Tools",
+    ),
     # Notification Center
     Key([MOD], "y", lazy.spawn(NOTIFICATION_CENTER_CMD)),
     Key([MOD], "v", lazy.spawn("sh .config/qtile/scripts/multi_monitor.sh")),
-
     # Move focus to screens
     Key([MOD], "F1", lazy.to_screen(0), desc="Move focus to screen 0"),
     Key([MOD], "F2", lazy.to_screen(1), desc="Move focus to screen 1"),
     Key([MOD], "F3", lazy.to_screen(2), desc="Move focus to screen 2"),
+    # keybinds for audio transription
+
 ]
 
 # Drag floating layouts.
@@ -108,9 +141,8 @@ mouse = [
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
-    Drag([MOD],
-         "Button3",
-         lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
+    Drag(
+        [MOD], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+    ),
     Click([MOD], "Button2", lazy.window.bring_to_front()),
 ]

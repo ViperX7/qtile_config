@@ -3,16 +3,12 @@ layouts
 """
 from libqtile import layout
 from libqtile.config import Match
-from libqtile.layout import Columns
-from libqtile.layout import Floating
-from libqtile.layout import Max
-from libqtile.layout import MonadTall
-from libqtile.layout import Zoomy
+from libqtile.layout import Columns, Floating, Max, MonadTall, Zoomy
 
 layouts = [
     Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1),
-    Zoomy(),
     Max(),
+    Zoomy(),
     MonadTall(),
     Floating(),
     # Try more layouts by unleashing below layouts.
@@ -31,8 +27,8 @@ floating_layout = Floating(
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
-        # Match(wm_class="flet"),  # gitk
-        # Match(wm_class="Flet"),  # gitk
+        Match(wm_class="flet"),
+        Match(wm_class="Flet"),
         Match(wm_class="winapps"),  # gitk
         Match(wm_class="makebranch"),  # gitk
         Match(wm_class="maketag"),  # gitk
