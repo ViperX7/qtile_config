@@ -105,7 +105,9 @@ spads = [
 
 spad_keys = [
     Key([], "F12", lazy.group["scratchpad"].dropdown_toggle("term")),
-    Key([MOD], "semicolon", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
+    Key(["control"], "semicolon", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
+    Key([MOD], "h", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
+    Key([MOD], "r", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
     # Key(["control"], 48, lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
     Key([MOD], "F3", lazy.group["scratchpad"].dropdown_toggle("teams")),
     Key([MOD], "d", lazy.group["scratchpad"].dropdown_toggle("discord")),
@@ -113,7 +115,7 @@ spad_keys = [
     Key([MOD], "m", lazy.group["scratchpad"].dropdown_toggle("mailclient")),
     Key([MOD], "n", lazy.group["scratchpad"].dropdown_toggle("notes")),
     Key([MOD], "p", lazy.group["scratchpad"].dropdown_toggle("passman")),
-    Key([MOD], "r", lazy.group["scratchpad"].dropdown_toggle("videoplayer")),
+    # Key([MOD], "r", lazy.group["scratchpad"].dropdown_toggle("videoplayer")),
     Key([MOD], "t", lazy.group["scratchpad"].dropdown_toggle("tgram")),
     # Key([MOD], "i", lazy.group["scratchpad"].dropdown_toggle("pomo")),
     Key([MOD], "0", lazy.group["scratchpad"].dropdown_toggle("sprod")),
