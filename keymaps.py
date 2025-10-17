@@ -50,15 +50,15 @@ keys = [
     # A list of available commands that can be bound to keys can be found
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
-    Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([MOD], "h", lazy.layout.left(), lazy.layout.previous(), desc="Move focus to left"),
+    Key([MOD], "l", lazy.layout.right(), lazy.layout.next(), desc="Move focus to right"),
     Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
     Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
     Key(["mod1"], "Tab", lazy.layout.next(), desc="Focus next window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key(MOD_S, "h", lazy.layout.shuffle_left(), desc="window to ->"),
-    Key(MOD_S, "l", lazy.layout.shuffle_right(), desc="window to <-"),
+    Key(MOD_S, "h", lazy.layout.shuffle_left(), lazy.layout.client_to_previous(), desc="window to ->"),
+    Key(MOD_S, "l", lazy.layout.shuffle_right(), lazy.layout.client_to_next(), desc="window to <-"),
     Key(MOD_S, "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key(MOD_S, "k", lazy.layout.shuffle_up(), desc="Move window up"),
     Key(
@@ -69,8 +69,8 @@ keys = [
     ),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key(MOD_C, "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key(MOD_C, "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key(MOD_C, "h", lazy.layout.grow_left(), lazy.layout.grow(), desc="Grow window to the left"),
+    Key(MOD_C, "l", lazy.layout.grow_right(), lazy.layout.shrink(), desc="Grow window to the right"),
     Key(MOD_C, "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key(MOD_C, "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([MOD], "n", lazy.layout.normalize(), desc="Reset all window sizes"),

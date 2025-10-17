@@ -6,13 +6,14 @@ from libqtile.config import Match
 from libqtile.layout import Columns, Floating, Max, MonadTall, Zoomy
 
 layouts = [
+    layout.MonadThreeCol( border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1),
+    layout.Stack(num_stacks=3, border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1 ),
     Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1),
     Max(),
     Zoomy(),
-    MonadTall(),
+    # MonadTall(),
     Floating(),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
     # layout.MonadWide(),
