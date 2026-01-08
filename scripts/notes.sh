@@ -11,7 +11,7 @@ else
     tmux send-keys -t Notes "pypy3 -m mkdocs serve --dirty -a 0.0.0.0:8000" c-m
     tmux  new-window -t Notes zsh
     tmux send-keys -t Notes "cd ~/blog/docs" c-m
-    tmux send-keys -t Notes "nvim index.md" c-m
+    tmux send-keys -t Notes "nvim README.md" c-m
     # tmux command-prompt -t Notes "set status off"
     # tmux send-keys -t Notes c-m
     kitty --class kittynotes tmux attach -t Notes -d &

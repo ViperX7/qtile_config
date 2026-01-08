@@ -7,7 +7,7 @@ import libqtile
 from colors import catppuccin, theme
 from libqtile import bar, lazy
 from libqtile.widget import (CPU, Battery, Chord, Clock, CurrentLayout,
-                             CurrentLayoutIcon, GroupBox, Memory, Net, Notify,
+                              GroupBox, Memory, Net, Notify,
                              Prompt, Sep, Systray, TaskList, TextBox,Chord,
                              WindowName)
 from settings import IS_DESKTOP
@@ -26,7 +26,7 @@ def init_widgets():
 
     widgets = []
     left_widget_group = [
-        CurrentLayoutIcon(scale=0.6, padding=8),
+        CurrentLayout(scale=0.6, padding=8, mode="icon"),
         Chord(),
         GroupBox(
             fontsize=10,
@@ -167,7 +167,7 @@ def init_widgets():
             foreground=catppuccin["blue"],
             background=catppuccin["pink"],
         ),
-        Systray(background=catppuccin["blue"]),
+        # Systray(background=catppuccin["blue"]),
         TextBox(
             text="◤",
             fontsize=BAR_CUT_OUT_SIZE,

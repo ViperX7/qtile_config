@@ -50,7 +50,7 @@ POMO = "pomotroid --no-sandbox"
 MTERM = "/bin/bash .config/qtile/scripts/master_term.sh"
 
 APP_PATH = os.path.expanduser("~/.local/share/applications/")
-file = [file for file in os.listdir(APP_PATH) if "brave" in file]
+file = [file for file in os.listdir(APP_PATH) if "Teams" in file]
 TEAMS = None
 if file:
     target = file[0]
@@ -67,7 +67,7 @@ spads = [
     scratchgen("term", DROPTERM, 0.4, 0.9, None, 0, True, "termdrop"),
     scratchgen("fman", FILEMAN, 0.9, 0.84, res="dolphin"),
     scratchgen("passman", "keepassxc", 0.8, 0.6, res="keepassxc"),
-    scratchgen("mailclient", "thunderbird", 0.8, 0.6, res="thunderbird"),
+    scratchgen("mailclient", "thunderbird", 0.8, 0.6, res="org.mozilla.Thunderbird"),
     scratchgen("discord", "discord", 0.9, 0.84, res="discord"),
     scratchgen("scratch_term", MTERM, 0.9, 0.84, res="Vterm"),
     scratchgen("aidboard", AIBOARD, 0.9, 0.84, res="flet"),
@@ -91,7 +91,7 @@ spads = [
     scratchgen("pomo", POMO, 0.4, 0.2),
     scratchgen(
         "sprod",
-        "Applications/superProductivity-7.11.5.AppImage",
+        "Applications/superProductivity-x86_64.AppImage",
         0.9,
         0.84,
         res="superproductivity",
@@ -106,7 +106,7 @@ spads = [
 spad_keys = [
     Key([], "F12", lazy.group["scratchpad"].dropdown_toggle("term")),
     Key(["control"], "semicolon", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
-    Key([MOD], "h", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
+    Key([MOD], "semicolon", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
     Key([MOD], "r", lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
     # Key(["control"], 48, lazy.group["scratchpad"].dropdown_toggle("scratch_term")),
     Key([MOD], "F3", lazy.group["scratchpad"].dropdown_toggle("teams")),

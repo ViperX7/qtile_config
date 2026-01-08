@@ -1,7 +1,7 @@
 """
 Qtile Config
 """
-from os import listdir
+import os
 from random import choice as rand_choice
 from subprocess import PIPE, Popen
 
@@ -16,6 +16,12 @@ from layouts import layouts, floating_layout
 from settings import (AUTO_START_ALWAYS, AUTO_START_ONCE, IS_DESKTOP, MOD,
                       WALL_PATH, auto_fullscreen)
 
+def list_files(path):
+    contents = os.listdir(path)
+
+    contents = [x for x in contents if os.path.isfile(f"{path}/{x}")]
+    return contents
+
 MOD_S = [MOD, "shift"]
 MOD_C = [MOD, "control"]
 # pyright: basic
@@ -23,6 +29,8 @@ MOD_C = [MOD, "control"]
 groups.append(ScratchPad("scratchpad", spads))
 keys.extend(spad_keys)  # extend keys list with keybinding for scratchpad
 keys.extend(group_keys)
+
+wallpapers = [x for x in list_files(WALL_PATH) if x[-4:] in [".png", ".jpg", "jpeg"]]
 
 widget_defaults = {
     "font": "FiraCode Nerd Font",
@@ -34,13 +42,13 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        top=custom_bar,
-        wallpaper=WALL_PATH + rand_choice(listdir(WALL_PATH)),
+        top=custom_bar_new,
+        wallpaper=WALL_PATH + "/ultrawide/" + rand_choice(list_files(f"{WALL_PATH}/ultrawide")),
         wallpaper_mode="fill",
     ),
     Screen(
-        # top=custom_bar_new,
-        wallpaper=WALL_PATH + rand_choice(listdir(WALL_PATH)),
+        top=custom_bar,
+        wallpaper=WALL_PATH + rand_choice(wallpapers),
         wallpaper_mode="fill",
     ),
 ]

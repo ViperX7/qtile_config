@@ -9,7 +9,7 @@ MOD = "mod4"
 TERMINAL = "kitty"
 BROWSER = "firefox"
 FILEMAN = "dolphin"
-WALL_PATH = os.path.expanduser("~/Pictures/wallpapers/new/")
+WALL_PATH = os.path.expanduser("~/Pictures/wallpapers/")
 
 IS_DESKTOP = b"base" in check_output("hostname")
 
